@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a [routerLink]="['/students']" style="font-weight: bold;" routerLinkActive="active" class="nav-link"
+            >Student List</a
+          >
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/create-student']" style="font-weight: bold;" class="nav-link"> Add Student </a>
+          </li>
+      </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" style="font-weight: bold;" [routerLink]="['/welcome']">Home</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+<div class="container" style="height: 75vh; padding-top: 15px;">
+<h3>List of Students</h3>
+
+<table class="table table-striped">
+  <thead style="text-align: justify;">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Mobile Number</th>
+      <th style="padding-left: 65px;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students | paginate : {id : 'listing_pagination',
+      itemsPerPage: 5,currentPage: page, totalItems: totalRecords }">
+      <td>{{ student.firstName }}</td>
+      <td>{{ student.lastName }}</td>
+      <td>{{ student.emailId }}</td>
+      <td>{{ student.mobileNo }}</td>
+      <td>
+        <button (click)="updateStudent(student.id)" class="btn btn-info">
+          Update
+        </button>
+        <button
+          (click)="deleteStudent(student.id)"
+          class="btn btn-danger"
+          style="margin-left: 10px"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="text-align: right;">
+  <pagination-controls id="listing_pagination" maxSize="" directionLinks="true" (pageChange)="page = $event"></pagination-controls>
+</div>
+</div>
+<footer class="bg-primary mt-5 p-3 text-white text-center">Copyright &copy; {{today | date: 'yyyy' }}
+</footer>

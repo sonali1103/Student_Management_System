@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a [routerLink]="['/students']" style="font-weight: bold;" routerLinkActive="active" class="nav-link"
+            >Student List</a
+          >
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/create-student']" style="font-weight: bold;" class="nav-link"> Add Student </a>
+          </li>
+      </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" style="font-weight: bold;" [routerLink]="['/welcome']">Home</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+<div class="col-md-8 offset-md-2" style="height: 75vh; padding-top: 15px;">
+  <h3>Add Student</h3>
+  <form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)" novalidate>
+    <div class="form-group" [class.has-error]="firstName.invalid">
+      <label class="control-label">First Name</label>
+      <input
+        required pattern="^[a-zA-Z]+$"        
+        type="text"
+        class="form-control"
+        id="firstName"
+        name="firstName"
+        [(ngModel)]="student.firstName"
+        #firstName="ngModel"
+      />
+      <div class="invalid-feedback d-block" *ngIf="firstName.invalid && firstName.touched">First Name is required</div>
+    </div>
+    <div class="form-group" [class.has-error]="lastName.invalid">
+      <label>Last Name</label>
+      <input
+        required pattern="^[a-zA-Z]+$"
+        #lastName="ngModel"
+        type="text"
+        class="form-control"
+        id="lastName"
+        name="lastName"
+        [(ngModel)]="student.lastName"
+      />
+      <div class="invalid-feedback d-block" *ngIf="lastName.invalid && lastName.touched">Last Name is required</div>
+    </div>
+    <div class="form-group"  [class.has-error]="emailId.invalid && emailId.touched" >
+      <label class="control-label">Email Id</label>
+      <input
+        required email
+        #emailId="ngModel"
+        type="email"
+        class="form-control"
+        id="emailId"
+        name="emailId"
+        [(ngModel)]="student.emailId"
+      />
+      <div class="invalid-feedback d-block" *ngIf="emailId.errors?.required && emailId.touched">Email is required</div>
+      <div class="invalid-feedback d-block" *ngIf="emailId.errors?.email && emailId.touched">Email is inavlid</div>
+    </div>
+    <div class="form-group" [class.has-error]="mobile.invalid && mobile.touched"> 
+      <label>Mobile Number</label>
+      <input
+        required minlength="10" pattern="^[0-9]+$"
+        #mobile="ngModel"
+        type="text"
+        class="form-control"
+        id="mobileNo"
+        name="mobileNo"
+        [(ngModel)]="student.mobileNo"
+      />
+      <div class="invalid-feedback d-block" *ngIf="mobile.errors?.pattern && mobile.touched">Enter valid number</div>
+      <div class="invalid-feedback d-block" *ngIf="mobile.errors?.minlength && mobile.touched">Minimun 10 digits required</div>
+      <div class="invalid-feedback d-block" *ngIf="mobile.errors?.required && mobile.touched">Mobile number is required</div>
+    </div>
+    <button
+      class="btn btn-success"
+      type="submit"
+      [disabled]="!studentForm.valid"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+<footer class="bg-primary mt-5 p-3 text-white text-center">Copyright &copy; {{today | date: 'yyyy' }}
+</footer>
