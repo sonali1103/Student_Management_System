@@ -1,1 +1,1 @@
-export var BaseUrl = "http://localhost:4000/students";
+export var BaseUrl = "/students";
