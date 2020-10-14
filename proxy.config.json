@@ -1,6 +1,6 @@
 {
     "/students/*":{
-        "target":"http://localhost:4000",
+        "target":"/students",
         "secure": false,
         "logLevel": "debug"
     }
